@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} HomePage {% endblock %} 
+
+{% block css %} {% endblock %}
+
+{% block body %} 
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/style.css' %}">
+
+{% if user.is_authenticated %}
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading"> Welcome {{ user.first_name}} {{user.last_name}} </h1>
+        <p class="lead"> You can Edit Your Profile In Profile Section </p>
+        <p class="lead">
+            <a href="/profile" class="btn btn-lg btn-secondary"> Go To Profile </a>
+        </p>
+    </main>
+{% else %}
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading"> Welcome To Login System </h1>
+        <p class="lead"> Get Your Account For Free Now </p>
+        <p class="lead">
+            <a href="/register" class="btn btn-lg btn-secondary"> Register </a>
+        </p>
+    </main>
+{% endif %}
+{% endblock %}

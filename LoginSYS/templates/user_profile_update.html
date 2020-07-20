@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %} User Update {% endblock %}
+
+{% block css %}  
+.container img {
+  height:100px;
+  width:100px;
+  border-radius: 50%;
+}
+{% endblock %}
+
+{% block body %} 
+
+<main role="main" class="container py-5">
+  <div class="row">
+    <div class="col-sm-4 text-center">
+      <img src="{{user.profile.image.url}}" alt="{{ user.first_name}} {{user.last_name}}">
+    </div>
+    <div class="col-sm-8">
+      <h1 class="title">{{ user.first_name}} {{user.last_name}}</h1>
+      <p class="title"> {{user.username}} &nbsp; <img src="{% static 'Images/check.svg' %}" style="height:15px;width:15px;"> </p>
+    </div>
+  </div>
+  <BR>
+  <form method="POST" enctype = "multipart/form-data">{% csrf_token %}  <!-- enctype used to update data in database -->
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Profile Info</legend>
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update</button>
+    </div>
+  </form>
+</main>
+<!--
+  <img src="{{user.profile.image.url}}" alt="John">
+  <h1 class="text-dark">{{ user.first_name}} {{user.last_name}}</h1>
+  <p class="title text-dark"> {{user.username}} </p>
+-->
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Profile  {% endblock %}
+
+{% block css %}   {% endblock %}
+
+{% block body %} 
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/profile.css' %}">
+
+<main role="main" class="container py-5 mx-auto">
+  <div class="row">
+    <div class="col-sm-4 text-center">
+      <img src="{{user.profile.image.url}}" alt="{{ user.first_name}} {{user.last_name}}">
+      <BR><BR>
+      <a href="/user_profile_update"> <button type="button" class="btn btn-outline-primary"> Edit Profile </button> </a>
+    </div>
+    <div class="col-sm-8">
+      <h1 class="title">{{ user.first_name}} {{user.last_name}}</h1>
+      <p class="title"> {{user.username}}  &nbsp; <img src="{% static 'Images/check.svg' %}" style="height:15px;width:15px;"> </p>
+    </div>
+  </div>
+</main>
+{% endblock %}

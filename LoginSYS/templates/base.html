@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> {% block title %} {% endblock %} </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/0ff0b45b0e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/com.css' %}">
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    
+      }
+        .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      {% block css %}   {% endblock %}
+    </style>
+</head>
+<body>
+ 
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand"> Login SYS </h3>
+        <nav class="nav nav-masthead justify-content-center">
+            {% url 'index' as index_url %}
+            {% url 'profile' as profile_url %}
+            {% url 'register' as register_url %}
+            {% url 'logout_handel' as logout_url %}
+          <a class="nav-link {% if request.path == index_url %} active {%endif%}" href="{{ index_url }}">Home</a>
+          {% if user.is_authenticated %}
+            <a class="nav-link {% if request.path == profile_url %} active {%endif%}" href="{{ profile_url }}"> Profile </a>
+            <a class="nav-link {% if request.path == logout_url %} active {%endif%}" href="#" data-toggle="modal" data-target="#logout_button"> Logout </a>
+            <!-- logout popup -->
+            <!-- Modal -->
+            <div class="modal fade" id="logout_button" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title text-dark" id="exampleModalLabel"> Are you sure You Want to Logout ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> No </button>
+                    <a href="/logout_handel"><button type="button" class="btn btn-primary"> Yes </button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <a class="nav-link {% if request.path == register_url %} active {%endif%}" href="{{ register_url }}"> Register </a>
+          {% endif %}
+        </nav>
+      </div>
+    </header> 
+    {% for message in messages %}
+      <div class="alert alert-{{message.tags}} alert-dismissible fade-show mt-0 mb-0" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong> Message : </strong> {{message}}
+      </div>
+    {% endfor %}
+  
+    {% block body %}    {% endblock %}
+  
+    <footer class="mastfoot mt-auto">
+      <div class="inner">
+        <p> Login System  By : Ace </a> </p>
+      </div>
+    </footer>
+</div>
+
+<!-- Javascripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
